@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".fragments.CharacterFragment">
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec_view"
         tools:listitem="@layout/item_characters"

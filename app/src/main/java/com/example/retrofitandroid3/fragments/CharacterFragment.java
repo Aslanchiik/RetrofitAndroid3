@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -36,6 +37,7 @@ public class CharacterFragment extends BaseFragment <FragmentCharacterBinding, C
     protected void setupObserves() {
         viewModel.data.observe(getViewLifecycleOwner(), rickyAndMortyCharacterRickAndMortyResponse -> {
             characterAdapter.submitList(rickyAndMortyCharacterRickAndMortyResponse.getResults());
+            binding.progressBar.setVisibility(View.GONE);
         });
     }
 
@@ -61,7 +63,8 @@ public class CharacterFragment extends BaseFragment <FragmentCharacterBinding, C
     }
 
     private void setupRecycler() {
-         binding.recView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.progressBar.setMax(100);
+        binding.recView.setLayoutManager(new LinearLayoutManager(getContext()));
          binding.recView.setAdapter(characterAdapter);
     }
 

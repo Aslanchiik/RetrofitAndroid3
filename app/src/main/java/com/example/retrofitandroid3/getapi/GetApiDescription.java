@@ -40,6 +40,7 @@ public class GetApiDescription extends BaseFragment <FragmentGetApiDescriptionBi
                         .into(binding.setImage);
 
                  binding.textView.setText(rickyAndMortyCharacter.name);
+                 binding.statusText.setText(rickyAndMortyCharacter.status);
 
             }
         });
