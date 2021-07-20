@@ -1,8 +1,6 @@
-package com.example.retrofitandroid3.models;
+package com.example.retrofitandroid3.models.response;
 
-import android.icu.text.IDNA;
-
-import com.example.retrofitandroid3.info.Info;
+import com.example.retrofitandroid3.models.info.Info;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;

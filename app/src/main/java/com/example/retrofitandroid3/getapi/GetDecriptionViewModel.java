@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.retrofitandroid3.app.App;
-import com.example.retrofitandroid3.character.RickyAndMortyCharacter;
+import com.example.retrofitandroid3.models.character.RickyAndMortyCharacter;
 
 import retrofit2.Call;
 import retrofit2.Callback;

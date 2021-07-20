@@ -1,4 +1,4 @@
-package com.example.retrofitandroid3;
+package com.example.retrofitandroid3.inter;
 
 import android.view.View;
 

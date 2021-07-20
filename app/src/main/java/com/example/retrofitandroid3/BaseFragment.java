@@ -31,7 +31,9 @@ public abstract class BaseFragment<Binding, ViewModel> extends Fragment {
         setupObserves();
     }
 
-    protected abstract void setupObserves();
+    protected void setupObserves() {
+
+    }
 
     protected abstract void setupRequests();
 

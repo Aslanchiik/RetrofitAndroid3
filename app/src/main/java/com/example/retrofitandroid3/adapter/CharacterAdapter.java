@@ -1,34 +1,41 @@
 package com.example.retrofitandroid3.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.retrofitandroid3.ItemClick;
-import com.example.retrofitandroid3.character.RickyAndMortyCharacter;
+import com.example.retrofitandroid3.inter.ItemClick;
+import com.example.retrofitandroid3.models.character.RickyAndMortyCharacter;
 import com.example.retrofitandroid3.databinding.ItemCharactersBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-public class CharacterAdapter extends ListAdapter<RickyAndMortyCharacter, CharacterAdapter.CharacterViewHolder> {
+import java.util.ArrayList;
+
+public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder> {
 
      ItemCharactersBinding binding;
+     private ArrayList <RickyAndMortyCharacter> list =  new ArrayList<>();
      ItemClick click;
 
     public void setClick(ItemClick click) {
         this.click = click;
     }
 
-    public CharacterAdapter(@NonNull @NotNull DiffUtil.ItemCallback<RickyAndMortyCharacter> diffCallback) {
-        super(diffCallback);
-    }
+//    public CharacterAdapter(@NonNull @NotNull DiffUtil.ItemCallback<RickyAndMortyCharacter> diffCallback) {
+//        super(diffCallback);
+//    }
+
+     public void addList (ArrayList <RickyAndMortyCharacter> list) {
+        this.list.addAll(list);
+        notifyDataSetChanged();
+     }
 
     @NonNull
     @NotNull
@@ -40,17 +47,24 @@ public class CharacterAdapter extends ListAdapter<RickyAndMortyCharacter, Charac
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CharacterAdapter.CharacterViewHolder holder, int position) {
-               holder.bind(getItem(position));
+               holder.bind(list.get(position));
     }
-     public static DiffUtil.ItemCallback <RickyAndMortyCharacter> diffCallback = new DiffUtil.ItemCallback<RickyAndMortyCharacter>() {
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    public static DiffUtil.ItemCallback <RickyAndMortyCharacter> diffCallback = new DiffUtil.ItemCallback<RickyAndMortyCharacter>() {
          @Override
          public boolean areItemsTheSame(@NonNull @NotNull RickyAndMortyCharacter oldItem, @NonNull @NotNull RickyAndMortyCharacter newItem) {
-             return false;
+             return oldItem.getId() == newItem.getId();
          }
 
+         @SuppressLint("DiffUtilEquals")
          @Override
          public boolean areContentsTheSame(@NonNull @NotNull RickyAndMortyCharacter oldItem, @NonNull @NotNull RickyAndMortyCharacter newItem) {
-             return false;
+             return oldItem.equals(newItem);
          }
      };
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.retrofitandroid3.fragments.CharacterFragment"
+        android:name="com.example.retrofitandroid3.fragments.character.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" >
         <action
@@ -23,4 +23,14 @@
             android:name="view_model_api"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/locationsFragment"
+        android:name="com.example.retrofitandroid3.fragments.loacations.LocationsFragment"
+        android:label="fragment_locations"
+        tools:layout="@layout/fragment_locations" />
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.example.retrofitandroid3.fragments.episode.EpisodeFragment"
+        android:label="fragment_episode"
+        tools:layout="@layout/fragment_episode" />
 </navigation>
