@@ -82,12 +82,16 @@ public class EpisodeFragment extends Fragment {
                         if ((visibleItem + pastItems) >= totalItem) {
                             progress = false;
                             episodeModel.characterPage++;
+                            binding.progressBarEpisodeGone.setVisibility(View.VISIBLE);
                             episodeModel.fetchEpisode().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<EpisodeRickyAndMorty>>() {
                                 @Override
                                 public void onChanged(RickAndMortyResponse<EpisodeRickyAndMorty> episodeRickyAndMortyRickAndMortyResponse) {
                                     if (episodeRickyAndMortyRickAndMortyResponse != null) {
                                         adapter.addAllList(episodeRickyAndMortyRickAndMortyResponse.getResults());
+                                        binding.progressBarEpisodeGone.setVisibility(View.GONE);
                                     }
+                                     else
+                                         binding.progressBarEpisodeGone.setVisibility(View.GONE);
                                 }
                             });
                             progress = true;

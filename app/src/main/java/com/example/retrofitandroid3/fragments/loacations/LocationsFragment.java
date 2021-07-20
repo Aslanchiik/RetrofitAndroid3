@@ -95,11 +95,16 @@ public class LocationsFragment extends Fragment {
                         if ((visibleItem + pastItems) >= totalItem) {
                             load = false;
                             viewModelLocations.characterPage++;
+                            binding.progressBarGone.setVisibility(View.VISIBLE);
                             viewModelLocations.fetchLocation().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<LocationsRickyAndMorty>>() {
                                 @Override
                                 public void onChanged(RickAndMortyResponse<LocationsRickyAndMorty> locationsRickyAndMortyRickAndMortyResponse) {
                                     if (locationsRickyAndMortyRickAndMortyResponse != null) {
                                         locations.addList(locationsRickyAndMortyRickAndMortyResponse.getResults());
+                                        binding.progressBarGone.setVisibility(View.GONE);
+                                    }
+                                      else {
+                                          binding.progressBarGone.setVisibility(View.GONE);
                                     }
                                 }
                             });

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.example.retrofitandroid3.fragments.character.CharacterFragment"
-        android:label="fragment_character"
+        android:label="Персонажи"
         tools:layout="@layout/fragment_character" >
         <action
             android:id="@+id/action_characterFragment_to_getApiDescription"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/getApiDescription"
         android:name="com.example.retrofitandroid3.getapi.GetApiDescription"
-        android:label="fragment_get_api_description"
+        android:label="Подбробнее"
         tools:layout="@layout/fragment_get_api_description" >
         <argument
             android:name="view_model_api"
@@ -26,11 +26,11 @@
     <fragment
         android:id="@+id/locationsFragment"
         android:name="com.example.retrofitandroid3.fragments.loacations.LocationsFragment"
-        android:label="fragment_locations"
+        android:label="Локация"
         tools:layout="@layout/fragment_locations" />
     <fragment
         android:id="@+id/episodeFragment"
         android:name="com.example.retrofitandroid3.fragments.episode.EpisodeFragment"
-        android:label="fragment_episode"
+        android:label="Эпизоды"
         tools:layout="@layout/fragment_episode" />
 </navigation>
