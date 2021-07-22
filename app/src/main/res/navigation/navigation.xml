@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.retrofitandroid3.fragments.character.CharacterFragment"
+        android:name="com.example.retrofitandroid3.ui.fragments.character.CharacterFragment"
         android:label="Персонажи"
         tools:layout="@layout/fragment_character" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/getApiDescription"
-        android:name="com.example.retrofitandroid3.getapi.GetApiDescription"
+        android:name="com.example.retrofitandroid3.ui.fragments.getapi.GetApiDescription"
         android:label="Подбробнее"
         tools:layout="@layout/fragment_get_api_description" >
         <argument
@@ -25,12 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/locationsFragment"
-        android:name="com.example.retrofitandroid3.fragments.loacations.LocationsFragment"
+        android:name="com.example.retrofitandroid3.ui.fragments.loacations.LocationsFragment"
         android:label="Локация"
         tools:layout="@layout/fragment_locations" />
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.example.retrofitandroid3.fragments.episode.EpisodeFragment"
+        android:name="com.example.retrofitandroid3.ui.fragments.episode.EpisodeFragment"
         android:label="Эпизоды"
         tools:layout="@layout/fragment_episode" />
 </navigation>

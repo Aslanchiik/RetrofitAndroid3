@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.character.CharacterFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragments.character.CharacterFragment">
 
-    <ProgressBar
+    <com.github.lzyzsd.circleprogress.DonutProgress
         android:id="@+id/progress_bar"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_gravity="center"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        app:donut_progress="100"
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,8 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:visibility="gone"
-        android:layout_height="wrap_content"/>/
+        android:layout_height="wrap_content"/>
+
+
 
 </FrameLayout>

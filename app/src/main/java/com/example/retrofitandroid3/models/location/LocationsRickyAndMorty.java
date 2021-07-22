@@ -1,4 +1,4 @@
-package com.example.retrofitandroid3.models.character;
+package com.example.retrofitandroid3.models.location;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
 
 @Entity
-public class RickyAndMortyCharacter {
+public class LocationsRickyAndMorty {
 
     @PrimaryKey
     @SerializedName("id")
@@ -15,18 +15,18 @@ public class RickyAndMortyCharacter {
     @SerializedName("name")
     public String name;
 
-    @SerializedName("status")
-    public String status;
+    @SerializedName("type")
+    public String type;
 
-     @SerializedName("image")
-     public String image;
+    @SerializedName("dimension")
+     public String dimension;
 
-    public String getImage() {
-        return image;
+    public String getDimension() {
+        return dimension;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setDimension(String dimension) {
+        this.dimension = dimension;
     }
 
     public int getId() {
@@ -45,13 +45,11 @@ public class RickyAndMortyCharacter {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
     }
 }
-
-
