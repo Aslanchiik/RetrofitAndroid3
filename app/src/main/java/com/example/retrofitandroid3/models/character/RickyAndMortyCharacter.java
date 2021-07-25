@@ -3,6 +3,7 @@ package com.example.retrofitandroid3.models.character;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.retrofitandroid3.Origin;
 import com.google.gson.annotations.SerializedName;
 
 @Entity
@@ -21,13 +22,8 @@ public class RickyAndMortyCharacter {
      @SerializedName("image")
      public String image;
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
+    @SerializedName("origin")
+    public Origin origin;
 
     public int getId() {
         return id;
@@ -45,13 +41,6 @@ public class RickyAndMortyCharacter {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }
 
 

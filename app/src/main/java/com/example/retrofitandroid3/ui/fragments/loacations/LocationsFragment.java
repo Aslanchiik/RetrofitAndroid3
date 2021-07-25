@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,15 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.retrofitandroid3.databinding.FragmentLocationsBinding;
-import com.example.retrofitandroid3.models.location.LocationsRickyAndMorty;
-import com.example.retrofitandroid3.models.response.RickAndMortyResponse;
 import com.example.retrofitandroid3.ui.adapter.locationadapter.AdapterLocations;
 import com.example.retrofitandroid3.viwemodels.loctaionviewmodel.ViewModelLocations;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LocationsFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
 
+
+@AndroidEntryPoint
+public class LocationsFragment extends Fragment {
 
     FragmentLocationsBinding binding;
 
@@ -38,8 +38,7 @@ public class LocationsFragment extends Fragment {
 
     public AdapterLocations locations = new AdapterLocations();
 
-    ViewModelLocations viewModelLocations = new ViewModelLocations();
-
+    ViewModelLocations viewModelLocations;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -58,8 +57,9 @@ public class LocationsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setRecycler();
         setProvider();
+        setRecycler();
+
 
     }
 
@@ -73,22 +73,23 @@ public class LocationsFragment extends Fragment {
         binding.locationsRecView.setLayoutManager(linearLayoutManager);
         binding.locationsRecView.setAdapter(locations);
 
-          if (isNetworkAvailable()){
-              viewModelLocations.fetchLocation().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<LocationsRickyAndMorty>>() {
-                  @Override
-                  public void onChanged(RickAndMortyResponse<LocationsRickyAndMorty> locationsRickyAndMortyRickAndMortyResponse) {
-                      locations.addList(locationsRickyAndMortyRickAndMortyResponse.getResults());
-                      binding.progressBarLocations.setVisibility(View.GONE);
-                  }
-              });
-          }       else   {
-               locations.addList(viewModelLocations.getLocationsOver());
-               binding.progressBarLocations.setVisibility(View.GONE);
-          }
+        if (isNetworkAvailable()) {
+            viewModelLocations.fetchLocation().observe(getViewLifecycleOwner(), locationsRickyAndMortyRickAndMortyResponse -> {
+                if (locationsRickyAndMortyRickAndMortyResponse != null) {
+                    locations.addList(locationsRickyAndMortyRickAndMortyResponse.getResults());
+                }
+                binding.progressBarLocations.setVisibility(View.GONE);
+
+            });
+        } else {
+            locations.addList(viewModelLocations.getLocationsOver());
+            binding.progressBarLocations.setVisibility(View.GONE);
+        }
         scrollPage();
     }
+
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = connectivityManager.getActiveNetworkInfo();
         return activeInfo != null && activeInfo.isConnected();
 
@@ -110,20 +111,16 @@ public class LocationsFragment extends Fragment {
                             load = false;
                             viewModelLocations.characterPage++;
 
-                                 if (isNetworkAvailable()){
-                                     binding.progressBarGone.setVisibility(View.VISIBLE);
-                                 }
-                            viewModelLocations.fetchLocation().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<LocationsRickyAndMorty>>() {
-                                @Override
-                                public void onChanged(RickAndMortyResponse<LocationsRickyAndMorty> locationsRickyAndMortyRickAndMortyResponse) {
-                                    if (locationsRickyAndMortyRickAndMortyResponse != null) {
-                                        locations.addList(locationsRickyAndMortyRickAndMortyResponse.getResults());
-                                        binding.progressBarGone.setVisibility(View.GONE);
-                                    }
-                                      else {
-                                          locations.addList(viewModelLocations.getLocationsOver());
-                                    }
+                            if (isNetworkAvailable())
+                                binding.progressBarGone.setVisibility(View.VISIBLE);
+
+
+                            viewModelLocations.fetchLocation().observe(getViewLifecycleOwner(), locationsRickyAndMortyRickAndMortyResponse -> {
+                                if (locationsRickyAndMortyRickAndMortyResponse != null) {
+                                    locations.addList(locationsRickyAndMortyRickAndMortyResponse.getResults());
                                 }
+                                binding.progressBarGone.setVisibility(View.GONE);
+
                             });
                             load = true;
                         }

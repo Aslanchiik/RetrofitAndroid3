@@ -4,13 +4,12 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <TextView
         android:id="@+id/item_episode_text"
         android:textSize="21sp"
         android:textColor="@color/white"
         android:background="@color/black"
-        android:text="Episode"
+        android:text="@string/episode"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,7 +19,7 @@
     <TextView
         android:id="@+id/item_page_number"
         android:textSize="15sp"
-        android:text="Page"
+        android:text="@string/page"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="12dp"

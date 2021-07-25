@@ -9,17 +9,27 @@ import com.example.retrofitandroid3.repositories.Repositories;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class CharacterViewModel extends ViewModel {
 
-    private final Repositories repository = new Repositories();
+   Repositories repository;
 
-    public  int characterPage = 1;
-
-     public MutableLiveData <RickAndMortyResponse<RickyAndMortyCharacter>> fetchCharacters () {
-          return repository.fetchCharacters(characterPage);
+   @Inject
+    public CharacterViewModel(Repositories repository) {
+        this.repository = repository;
     }
 
-     public ArrayList<RickyAndMortyCharacter> getCharacters () {
-         return repository.getCharacters();
-     }
+    public int characterPage = 1;
+
+    public MutableLiveData<RickAndMortyResponse<RickyAndMortyCharacter>> fetchCharacters() {
+        return repository.fetchCharacters(characterPage);
+    }
+
+    public ArrayList<RickyAndMortyCharacter> getCharacters() {
+        return repository.getCharacters();
+    }
 }

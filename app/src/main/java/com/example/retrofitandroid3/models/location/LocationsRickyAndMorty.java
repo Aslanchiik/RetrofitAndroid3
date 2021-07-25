@@ -21,14 +21,6 @@ public class LocationsRickyAndMorty {
     @SerializedName("dimension")
      public String dimension;
 
-    public String getDimension() {
-        return dimension;
-    }
-
-    public void setDimension(String dimension) {
-        this.dimension = dimension;
-    }
-
     public int getId() {
         return id;
     }

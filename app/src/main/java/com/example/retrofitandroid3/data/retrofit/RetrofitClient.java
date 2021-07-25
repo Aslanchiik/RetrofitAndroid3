@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-     private OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(providerInspector()).
+     private final OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(providerInspector()).
              connectTimeout(30, TimeUnit.SECONDS).
              readTimeout(30, TimeUnit.SECONDS).
              writeTimeout(30, TimeUnit.SECONDS).build();

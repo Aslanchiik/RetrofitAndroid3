@@ -23,6 +23,7 @@ public interface CharactersApiService {
     @GET("api/location")
     Call<RickAndMortyResponse<LocationsRickyAndMorty>> fetLocation(@Query("page") int page);
 
+
     @GET("api/episode")
     Call<RickAndMortyResponse<EpisodeRickyAndMorty>> fetEpisode(@Query("page") int page);
 }

@@ -8,23 +8,24 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.retrofitandroid3.databinding.FragmentEpisodeBinding;
-import com.example.retrofitandroid3.models.episodemodel.EpisodeRickyAndMorty;
-import com.example.retrofitandroid3.models.response.RickAndMortyResponse;
 import com.example.retrofitandroid3.ui.adapter.episodeadapter.EpisodeAdapter;
 import com.example.retrofitandroid3.viwemodels.episodeviewmodel.ViewEpisodeModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 
 public class EpisodeFragment extends Fragment {
 
@@ -34,14 +35,14 @@ public class EpisodeFragment extends Fragment {
 
     private int pastItems, visibleItem, totalItem;
 
-    ViewEpisodeModel episodeModel = new ViewEpisodeModel();
+    ViewEpisodeModel episodeModel;
 
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+    LinearLayoutManager linearLayoutManager;
 
     EpisodeAdapter adapter = new EpisodeAdapter();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentEpisodeBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -50,8 +51,8 @@ public class EpisodeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setRecycler();
         setProvider();
+        setRecycler();
     }
 
     private void setProvider() {
@@ -60,16 +61,16 @@ public class EpisodeFragment extends Fragment {
 
     private void setRecycler() {
         binding.progressBarEpisode.setMax(100);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         binding.episodeRecView.setLayoutManager(linearLayoutManager);
         binding.episodeRecView.setAdapter(adapter);
 
         if (isNetworkAvailable()) {
-            episodeModel.fetchEpisode().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<EpisodeRickyAndMorty>>() {
-                @Override
-                public void onChanged(RickAndMortyResponse<EpisodeRickyAndMorty> episodeRickyAndMortyRickAndMortyResponse) {
+            episodeModel.fetchEpisode().observe(getViewLifecycleOwner(), episodeRickyAndMortyRickAndMortyResponse -> {
+                if (episodeRickyAndMortyRickAndMortyResponse != null) {
                     adapter.addAllList(episodeRickyAndMortyRickAndMortyResponse.getResults());
-                    binding.progressBarEpisode.setVisibility(View.GONE);
                 }
+                binding.progressBarEpisode.setVisibility(View.GONE);
             });
         }
          else  {
@@ -81,7 +82,7 @@ public class EpisodeFragment extends Fragment {
     }
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = connectivityManager.getActiveNetworkInfo();
         return activeInfo != null && activeInfo.isConnected();
 
@@ -107,14 +108,14 @@ public class EpisodeFragment extends Fragment {
                                 binding.progressBarEpisodeGone.setVisibility(View.VISIBLE);
                                 {
 
-                                    episodeModel.fetchEpisode().observe(getViewLifecycleOwner(), new Observer<RickAndMortyResponse<EpisodeRickyAndMorty>>() {
-                                        @Override
-                                        public void onChanged(RickAndMortyResponse<EpisodeRickyAndMorty> episodeRickyAndMortyRickAndMortyResponse) {
-                                            if (episodeRickyAndMortyRickAndMortyResponse != null) {
-                                                adapter.addAllList(episodeRickyAndMortyRickAndMortyResponse.getResults());
-                                                binding.progressBarEpisodeGone.setVisibility(View.GONE);
-                                            } else
-                                                adapter.addAllList(episodeModel.getEpisodeOver());
+                                    episodeModel.fetchEpisode().observe(getViewLifecycleOwner(), episodeRickyAndMortyRickAndMortyResponse -> {
+                                        if (episodeRickyAndMortyRickAndMortyResponse != null) {
+                                            adapter.addAllList(episodeRickyAndMortyRickAndMortyResponse.getResults());
+                                            binding.progressBarEpisodeGone.setVisibility(View.GONE);
+                                        }
+                                        else {
+                                       //     adapter.addAllList(episodeModel.getEpisodeOver());
+                                            Log.e("tag" , "help");
                                         }
                                     });
                                     progress = true;

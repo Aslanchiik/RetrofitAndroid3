@@ -11,6 +11,9 @@ import android.os.Bundle;
 import com.example.retrofitandroid3.R;
 import com.example.retrofitandroid3.databinding.ActivityMainBinding;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        assert navHostFragment != null;
         navController = navHostFragment.getNavController();
 
         appBarConfiguration = new AppBarConfiguration.Builder(
